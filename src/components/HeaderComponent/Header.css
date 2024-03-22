@@ -1,0 +1,97 @@
+.app-bar-light {
+    background-color: #fff;
+    color: black;
+}
+
+.app-bar-dark {
+    background-color: black;
+    color: #fff;
+}
+
+
+.app-bar-custom {
+    height: 128px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s;
+}
+
+
+.toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7em
+}
+
+
+.menu-icon {
+    height: 65px;
+    width: 65px;
+}
+
+
+.menu-icon svg {
+    font-size: 2rem;
+}
+
+
+.header-title {
+    font-size: 2.5rem;
+    padding: 0 30px;
+}
+
+
+
+.header-light .search,
+.header-dark .search {
+    background-color: #fff;
+}
+
+.header-light .search:hover,
+.header-dark .search:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header .search:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+.header .inputInput {
+    height: 100%;
+}
+
+
+.theme-switch, .user-avatar {
+    transform: scale(1.25);
+}
+
+.user-avatar {
+    margin-left: 10px;
+    height: 48px;
+    width: 48px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-clear-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+.theme-switch, .user-avatar {
+    transform: scale(1);
+    margin: 0 8px;
+}
+
+
+
+
+
+
