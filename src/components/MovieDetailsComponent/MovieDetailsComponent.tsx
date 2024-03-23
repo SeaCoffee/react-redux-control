@@ -10,7 +10,6 @@ import Grid from '@mui/material/Grid';
 import {PosterPreview} from "../PosterPreview/PosterPreview";
 import {StarsRating} from "../StarsRatingComponent/StarsRatingComponent";
 import {useAppDispatch} from "../../hooks/appDispatchHook";
-import {useTheme} from "../../contexts/ThemeContext";
 import {useAppSelector} from "../../hooks/appDispatchHook";
 import {fetchMovie} from "../../store/slices/moviesListSlice";
 import {BackButton} from "../BackButtonComponent/BackButtonComponent";
@@ -25,7 +24,6 @@ export const MovieDetails: React.FC = () => {
     const dispatch = useAppDispatch();
     const movie = useAppSelector((state) => state.movies.currentMovie);
     const status = useAppSelector((state) => state.movies.currentMovieStatus);
-    const {theme, toggleTheme} = useTheme();
 
 
     useEffect(() => {

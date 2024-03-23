@@ -5,7 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 import {fetchMovies} from "../../store/slices/moviesListSlice";
 import {GenreListComponent} from "../GenreListComponent/GenreListComponent";
 import {usePageQuery} from "../../servises/pagination";
-import {useAppSelector, useAppDispatch} from "../../hooks/appDispatchHook";
+import {useAppDispatch} from "../../hooks/appDispatchHook";
 
 
 
@@ -17,7 +17,6 @@ interface MovieGenreProps {
 export const MovieGenre: React.FC<MovieGenreProps> = ({ genreId }) => {
     const { page, prevPage, nextPage } = usePageQuery();
     const dispatch = useAppDispatch();
-    const movies = useAppSelector(state => state.movies.movies);
 
 
     useEffect(() => {

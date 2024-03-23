@@ -20,9 +20,7 @@ import {useAppDispatch} from "../../hooks/appDispatchHook";
 import './Header.css'
 
 
-export interface HeaderProps {}
-
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC = () => {
     const dispatch = useAppDispatch();
     const { theme, toggleTheme } = useTheme();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -95,5 +93,5 @@ export const Header: React.FC<HeaderProps> = () => {
         </>
     );
 };
-export default Header;
+
 

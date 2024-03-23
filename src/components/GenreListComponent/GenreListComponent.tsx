@@ -8,16 +8,12 @@ import {useAppSelector} from "../../hooks/appDispatchHook";
 
 
 
-
 export const GenreListComponent: React.FC = () => {
     const genres = useAppSelector(state => state.genres.genres);
     const movies = useAppSelector(state => state.movies.movies);
     const { theme } = useTheme();
 
-    const genreDictionary = genres.reduce((acc, genre) => {
-        acc[genre.id] = genre.name;
-        return acc;
-    }, {} as { [key: number]: string });
+
 
     return (
         <Box sx={{ bgcolor: theme === 'light' ? 'white' : 'black', color: theme === 'light' ? 'black' : 'white' }}>

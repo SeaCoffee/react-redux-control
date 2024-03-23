@@ -20,7 +20,7 @@ interface MoviesListCardProps {
     movieClick?: (movieId: number) => void;
 }
 
-export const MoviesListCard: React.FC<{ movie: Movie }> = ({ movie }) => {
+export const MoviesListCard: React.FC<MoviesListCardProps> = ({ movie }) => {
     const navigate = useNavigate();
     const genres = useAppSelector((state: RootState) => state.genres.genres);
 

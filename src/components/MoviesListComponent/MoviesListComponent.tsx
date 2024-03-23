@@ -1,5 +1,4 @@
 import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
 import { useSelector} from 'react-redux';
 
 import Grid from '@mui/material/Grid';
@@ -17,23 +16,15 @@ import {useAppDispatch} from "../../hooks/appDispatchHook";
 
 
 
-interface MoviesListComponentProps {}
 
 export const MoviesListComponent: React.FC = () => {
     const { page: queryPage, prevPage, nextPage } = usePageQuery();
     const page = queryPage ? parseInt(queryPage, 10) : 1;
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const movies = useSelector((state: RootState) => state.movies.movies);
-    const genres = useSelector((state: RootState) => state.genres.genres);
-    const moviesStatus = useSelector((state: RootState) => state.movies.status);
     const genresStatus = useSelector((state: RootState) => state.genres.status);
     const { theme } = useTheme();
 
-    const moviesListStyle = {
-        backgroundColor: theme === 'light' ? 'white' : 'black',
-        color: theme === 'light' ? 'black' : 'white',
-    };
 
     useEffect(() => {
         dispatch(fetchMovies({ page }));

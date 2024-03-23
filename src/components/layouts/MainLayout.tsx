@@ -1,20 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-
 import {Header} from "../HeaderComponent/HeaderComponent";
 import {useTheme} from "../../contexts/ThemeContext";
-import {Genre, Movie} from "../../interfaces/responseInterfaces";
-
-export interface MainLayoutProps {
-    onSearch: (searchTerm: string) => void;
-    movies?: Movie[];
-    genres?: Genre[];
-    children?: React.ReactNode;
-}
 
 
-export const MainLayout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+
+export const MainLayout: React.FC = () => {
     const { theme } = useTheme();
 
     const layoutStyle = {
