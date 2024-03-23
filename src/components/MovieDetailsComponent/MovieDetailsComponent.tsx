@@ -15,7 +15,9 @@ import {useAppSelector} from "../../hooks/appDispatchHook";
 import {fetchMovie} from "../../store/slices/moviesListSlice";
 import {BackButton} from "../BackButtonComponent/BackButtonComponent";
 import {GenreBadge} from "../GenreBeigeComponent/GenreBeigeComponent";
-import {RootState} from "../../store/store";
+
+import './MovieDetails.css'
+
 
 
 export const MovieDetails: React.FC = () => {
@@ -24,21 +26,11 @@ export const MovieDetails: React.FC = () => {
     const movie = useAppSelector((state) => state.movies.currentMovie);
     const status = useAppSelector((state) => state.movies.currentMovieStatus);
     const {theme, toggleTheme} = useTheme();
-    const genresStatus = useAppSelector((state) => state.genres.status);
-    const genres = useAppSelector((state: RootState) => state.genres.genres);
-
-    const cardStyles = {
-        backgroundColor: theme === 'light' ? 'white' : 'black',
-        color: theme === 'light' ? 'black' : 'white',
-    };
 
 
     useEffect(() => {
         dispatch(fetchMovie(Number(movieId)));
     }, [dispatch, movieId]);
-
-    console.log('Movie details:', movie);
-
 
 
     if (!movie || status === 'loading') {
@@ -47,7 +39,7 @@ export const MovieDetails: React.FC = () => {
 
 
     return (
-        <Card raised style={cardStyles}>
+        <Card raised style={{backgroundColor: 'white', color: 'black'}}>
             <CardContent>
                 <Grid container spacing={2}>
                     <BackButton/>

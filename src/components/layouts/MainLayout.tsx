@@ -26,7 +26,7 @@ export const MainLayout: React.FC<{ children?: React.ReactNode }> = ({ children 
         <div style={layoutStyle}>
             <Header />
             <Outlet />
-            {children}
+
         </div>
     );
 };
