@@ -9,7 +9,6 @@ import {useAppSelector} from "../../hooks/appDispatchHook";
 
 
 export const GenreListComponent: React.FC = () => {
-    const genres = useAppSelector(state => state.genres.genres);
     const movies = useAppSelector(state => state.movies.movies);
     const { theme } = useTheme();
 
