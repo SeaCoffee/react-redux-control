@@ -27,6 +27,11 @@ export const MovieDetails: React.FC = () => {
     const genresStatus = useAppSelector((state) => state.genres.status);
     const genres = useAppSelector((state: RootState) => state.genres.genres);
 
+    const cardStyles = {
+        backgroundColor: theme === 'light' ? 'white' : 'black',
+        color: theme === 'light' ? 'black' : 'white',
+    };
+
 
     useEffect(() => {
         dispatch(fetchMovie(Number(movieId)));
@@ -35,13 +40,14 @@ export const MovieDetails: React.FC = () => {
     console.log('Movie details:', movie);
 
 
+
     if (!movie || status === 'loading') {
         return <div>Loading...</div>;
     }
 
 
     return (
-        <Card raised>
+        <Card raised style={cardStyles}>
             <CardContent>
                 <Grid container spacing={2}>
                     <BackButton/>
