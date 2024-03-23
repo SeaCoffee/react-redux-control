@@ -56,10 +56,8 @@ export const genresService = {
 
 export const searchService = {
     getAll: (query: string, page: number = 1): Promise<AxiosResponse<MovieApiResponse>> => {
-        console.log(`Sending request to API: query = ${query}, page = ${page}`);
         return apiService.get(`/3/search/movie?query=${encodeURIComponent(query)}&page=${page}`)
             .then(response => {
-                console.log("Response from API:", response);
                 return response;
             })
             .catch(error => {

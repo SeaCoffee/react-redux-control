@@ -1,47 +1,37 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useSelector} from "react-redux";
-import {useState} from "react";
+import { setQuery } from "../../store/slices/searchSlice";
+import { useAppDispatch } from "../../hooks/appDispatchHook";
+import './SearchBar.css';
 
-import {RootState} from "../../store/store";
-import {setQuery} from "../../store/slices/searchSlice";
-import {useAppDispatch} from "../../hooks/appDispatchHook";
-
-import './SearchBar.css'
-
-export interface SearchBarProps {
-    onSearch: (searchTerm: string) => void;
-}
-
+type FormData = {
+    search: string;
+};
 
 export const SearchBar: React.FC = () => {
-    const query = useSelector((state: RootState) => state.search.query);
-    const [inputValue, setInputValue] = useState('');
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value);
-    };
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        dispatch(setQuery(inputValue));
-        navigate(`/search?query=${inputValue}`);
-        setInputValue('');
+    const onSubmit = (data: FormData) => {
+        dispatch(setQuery(data.search));
+        navigate(`/search?query=${data.search}`);
+        reset();
     };
 
     return (
-        <form onSubmit={handleSubmit} className="search-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="search-form">
             <input
+                {...register('search', { required: true, minLength: 3 })}
                 className="search-input"
                 type="text"
                 placeholder="Search for movies..."
-                value={inputValue}
-                onChange={handleChange}
             />
+            {errors.search && <p className="error-message">required</p>}
             <button className="search-button" type="submit">Search</button>
         </form>
     );
 };
+
 
