@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Avatar from "@mui/material/Avatar";
 
 import {userService} from "../../servises/axiosService";
-
 import {UserApiResponse} from "../../interfaces/responseInterfaces";
 
 

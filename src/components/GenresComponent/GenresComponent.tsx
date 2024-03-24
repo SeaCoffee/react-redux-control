@@ -6,7 +6,6 @@ import {fetchMovies} from "../../store/slices/moviesListSlice";
 import {GenreListComponent} from "../GenreListComponent/GenreListComponent";
 import {usePageQuery} from "../../hooks/pagination";
 import {useAppDispatch} from "../../hooks/appDispatchHook";
-import {BackButton} from "../BackButtonComponent/BackButtonComponent";
 
 
 interface MovieGenreProps {
@@ -32,7 +31,6 @@ export const MovieGenre: React.FC<MovieGenreProps> = ({ genreId }) => {
         <div>
             <GenreListComponent />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                <BackButton/>
                 <Button onClick={prevPage} disabled={currentPage <= 1}>Previous page</Button>
                 <Typography>Page {currentPage} of {totalPages}</Typography>
                 <Button onClick={nextPage} disabled={currentPage >= totalPages}>Next Page</Button>

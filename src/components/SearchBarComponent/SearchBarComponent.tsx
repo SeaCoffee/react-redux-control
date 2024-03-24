@@ -33,7 +33,7 @@ export const SearchBar: React.FC = () => {
                 type="text"
                 placeholder="Search for movies..."
             />
-            {errors.search && <p className="error-message">required</p>}
+            {errors.search && <p className="error-message">Required field</p>}
             <button className="search-button" type="submit">Search</button>
         </form>
     );

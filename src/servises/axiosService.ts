@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosInstance } from 'axios';
 
 import {baseURL} from "../urls/urls";
-import {MovieApiResponse, GenreApiResponse, UserApiResponse, Movie, Genre} from "../interfaces/responseInterfaces";
+import {MovieApiResponse, GenreApiResponse, UserApiResponse, Movie} from "../interfaces/responseInterfaces";
 
 
 export const apiRequest: AxiosInstance = axios.create({baseURL})
@@ -28,6 +28,7 @@ userApiService.interceptors.request.use(request => {
     request.headers.Authorization = `Bearer ${token}`;
     return request;
 });
+
 
 export const moviesService = {
     getAll: (page = 1): Promise<AxiosResponse<MovieApiResponse>> =>
@@ -88,4 +89,3 @@ export const posterService = {
     }
 };
 
-export default apiService;

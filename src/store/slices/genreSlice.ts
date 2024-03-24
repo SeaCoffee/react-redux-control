@@ -33,8 +33,6 @@ export const fetchGenres = createAsyncThunk<Genre[], void, { rejectValue: string
 );
 
 
-
-
 const genresSlice = createSlice({
     name: 'genres',
     initialState,

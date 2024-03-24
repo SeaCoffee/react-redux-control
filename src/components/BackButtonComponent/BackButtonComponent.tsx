@@ -15,7 +15,7 @@ export const BackButton = () => {
     };
 
     return (
-        <button onClick={handleClick}>Go Back</button>
+        <button onClick={handleClick}>GO BACK</button>
     );
 };
 

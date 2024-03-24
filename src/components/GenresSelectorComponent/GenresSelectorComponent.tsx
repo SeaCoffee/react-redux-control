@@ -40,6 +40,7 @@ export const GenreSelector: React.FC<GenreSelectorProps> = ({ onClose }) => {
                     borderTop: '1px solid #ddd',
                     borderBottom: '1px solid #ddd',
                     mb: 1,
+                    cursor: 'pointer',
                 }}
             >
                 <ListItemText primary="Home" />
@@ -49,7 +50,11 @@ export const GenreSelector: React.FC<GenreSelectorProps> = ({ onClose }) => {
                 <ListItem
                     key={genre.id}
                     onClick={() => handleGenreClick(genre.id)}
-                    sx={{ padding: '10px 16px', backgroundColor: location.pathname === `/genres/${genre.id}` ? 'lightblue' : 'inherit' }}
+                    sx={{
+                        padding: '10px 16px',
+                        backgroundColor: location.pathname === `/genres/${genre.id}` ? 'lightblue' : 'inherit',
+                        cursor: 'pointer',
+                    }}
                 >
                     <ListItemText primary={genre.name} />
                 </ListItem>

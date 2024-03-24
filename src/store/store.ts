@@ -1,4 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
+
 import {default as searchReducer} from './slices/searchSlice'
 import {default as genresReducer} from './slices/genreSlice'
 import {default as moviesReducer} from './slices/moviesListSlice'
