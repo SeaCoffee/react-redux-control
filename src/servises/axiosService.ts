@@ -73,7 +73,14 @@ export const userService = {
         userApiService.get('/3/account')
             .then(response => response)
             .catch(error => { console.error(error); throw error; }),
+
+    getAvatarUrl: (user: UserApiResponse): string => {
+        return user.avatar?.gravatar?.hash
+            ? `https://www.gravatar.com/avatar/${user.avatar.gravatar.hash}?s=30`
+            : 'path_to_default_avatar_image';
+    }
 };
+
 
 export const posterService = {
     getPosterUrl: (imageUrl: string): string => {

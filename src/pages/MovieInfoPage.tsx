@@ -1,10 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import {MovieDetails} from "../components/MovieDetailsComponent/MovieDetailsComponent";
+import {MovieInfo} from "../components/MovieInfoComponent/MovieInfoComponent";
 
 
-export const MovieDetailsPage: React.FC = () => {
+export const MovieInfoPage: React.FC = () => {
     const { movieId } = useParams<{ movieId?: string }>();
 
 
@@ -12,5 +12,5 @@ export const MovieDetailsPage: React.FC = () => {
         return <div>Movie id is not found</div>;
     }
 
-    return <MovieDetails />;
+    return <MovieInfo />;
 };

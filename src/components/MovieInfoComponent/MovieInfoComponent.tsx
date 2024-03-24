@@ -15,11 +15,11 @@ import {fetchMovie} from "../../store/slices/moviesListSlice";
 import {BackButton} from "../BackButtonComponent/BackButtonComponent";
 import {GenreBadge} from "../GenreBeigeComponent/GenreBeigeComponent";
 
-import './MovieDetails.css'
+import './MovieInfo.css'
 
 
 
-export const MovieDetails: React.FC = () => {
+export const MovieInfo: React.FC = () => {
     const {movieId} = useParams<{ movieId: string }>();
     const dispatch = useAppDispatch();
     const movie = useAppSelector((state) => state.movies.currentMovie);

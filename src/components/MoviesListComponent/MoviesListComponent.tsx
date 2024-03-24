@@ -1,3 +1,4 @@
+import React from "react";
 import {useEffect} from "react";
 import { useSelector} from 'react-redux';
 
@@ -7,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import {MoviesListCard} from "../MovieListCardComponent/MovieListCardComponent";
-import {usePageQuery} from "../../servises/pagination";
+import {usePageQuery} from "../../hooks/pagination";
 import {useTheme} from "../../contexts/ThemeContext";
 import {fetchMovies} from "../../store/slices/moviesListSlice";
 import {fetchGenres} from "../../store/slices/genreSlice";
@@ -15,23 +16,19 @@ import { RootState} from "../../store/store";
 import {useAppDispatch} from "../../hooks/appDispatchHook";
 
 
-
-
 export const MoviesListComponent: React.FC = () => {
-    const { page: queryPage, prevPage, nextPage } = usePageQuery();
-    const page = queryPage ? parseInt(queryPage, 10) : 1;
+    const { currentPage, prevPage, nextPage, totalPages } = usePageQuery();
     const dispatch = useAppDispatch();
     const movies = useSelector((state: RootState) => state.movies.movies);
     const genresStatus = useSelector((state: RootState) => state.genres.status);
     const { theme } = useTheme();
 
-
     useEffect(() => {
-        dispatch(fetchMovies({ page }));
+        dispatch(fetchMovies({ page: currentPage }));
         if (genresStatus === 'idle') {
             dispatch(fetchGenres());
         }
-    }, [dispatch, page, genresStatus]);
+    }, [dispatch, currentPage, genresStatus]);
 
     return (
         <Box sx={{ bgcolor: theme === 'light' ? 'white' : 'black', color: theme === 'light' ? 'black' : 'white' }}>
@@ -43,10 +40,11 @@ export const MoviesListComponent: React.FC = () => {
                 ))}
             </Grid>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                <Button onClick={prevPage}>Previous page</Button>
-                <Typography>Current page {page}</Typography>
-                <Button onClick={nextPage}>Next page</Button>
+                <Button onClick={prevPage} disabled={currentPage <= 1}>Go Back</Button>
+                <Typography>Page {currentPage} of {totalPages}</Typography>
+                <Button onClick={nextPage} disabled={currentPage >= totalPages}>Go Next</Button>
             </Box>
         </Box>
     );
 };
+

@@ -18,7 +18,6 @@ export const MainLayout: React.FC = () => {
         <div style={layoutStyle}>
             <Header />
             <Outlet />
-
         </div>
     );
 };

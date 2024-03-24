@@ -1,21 +1,14 @@
-import { useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const BackButton = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const previousUrlRef = useRef<string>('');
-
-    useEffect(() => {
-        return () => {
-            previousUrlRef.current = location.pathname;
-        };
-    }, [location.pathname]);
+    const queryParams = new URLSearchParams(location.search);
+    const from = queryParams.get('from');
 
     const handleClick = () => {
-        console.log('Back button clicked');
-        if (previousUrlRef.current) {
-            navigate(previousUrlRef.current);
+        if (from) {
+            navigate(from);
         } else {
             navigate('/');
         }
@@ -25,3 +18,4 @@ export const BackButton = () => {
         <button onClick={handleClick}>Go Back</button>
     );
 };
+

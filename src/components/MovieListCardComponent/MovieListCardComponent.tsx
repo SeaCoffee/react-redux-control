@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -11,8 +11,7 @@ import {PosterPreview} from "../PosterPreview/PosterPreview";
 import {StarsRating} from "../StarsRatingComponent/StarsRatingComponent";
 import {GenreBadge} from "../GenreBeigeComponent/GenreBeigeComponent";
 import {Movie} from "../../interfaces/responseInterfaces";
-import {RootState} from "../../store/store";
-import {useAppSelector} from "../../hooks/appDispatchHook";
+
 
 
 interface MoviesListCardProps {
@@ -22,13 +21,12 @@ interface MoviesListCardProps {
 
 export const MoviesListCard: React.FC<MoviesListCardProps> = ({ movie }) => {
     const navigate = useNavigate();
-    const genres = useAppSelector((state: RootState) => state.genres.genres);
+    const location = useLocation();
 
-    console.log(genres, 'from card')
 
     const handleClick = () => {
         console.log(`Navigating to movie: ${movie.id}`);
-        navigate(`/movie-details/${movie.id}`, { replace: true });
+        navigate(`/movie-details/${movie.id}?from=${location.pathname}`, { replace: true });
     };
 
 

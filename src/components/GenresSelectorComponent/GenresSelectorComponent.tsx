@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useSelector} from "react-redux";
+import { useLocation } from 'react-router-dom';
 
-import { List, ListItem, ListItemText, Divider, Typography } from '@mui/material';
+import { List, ListItem, ListItemText, Divider } from '@mui/material';
 
-import {RootState} from "../../store/store";
+import {useAppSelector} from "../../hooks/appDispatchHook";
 
 
 
@@ -13,12 +13,14 @@ interface GenreSelectorProps {
 }
 
 export const GenreSelector: React.FC<GenreSelectorProps> = ({ onClose }) => {
-    const genres = useSelector((state: RootState) => state.genres.genres);
+    const genres = useAppSelector((state) => state.genres.genres);
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleGenreClick = (genreId: number) => {
-        console.log(`Navigating to genre: ${genreId}`);
-        navigate(`/genres/${genreId}`);
+    const handleGenreClick = (genreId?: number) => {
+        const path = genreId ? `/genres/${genreId}` : '/';
+        console.log(`Navigating to: ${path}`);
+        navigate(path);
         if (onClose) onClose();
     };
 
@@ -26,15 +28,28 @@ export const GenreSelector: React.FC<GenreSelectorProps> = ({ onClose }) => {
         return <div>Loading...</div>;
     }
 
+
     return (
         <List>
-            <Typography variant="h6" sx={{ padding: '16px' }}>Genres</Typography>
+            <ListItem
+                onClick={() => handleGenreClick()}
+                sx={{
+                    padding: '10px 16px',
+                    backgroundColor: location.pathname === '/' ? 'lightblue' : 'inherit',
+                    fontWeight: 'bold',
+                    borderTop: '1px solid #ddd',
+                    borderBottom: '1px solid #ddd',
+                    mb: 1,
+                }}
+            >
+                <ListItemText primary="Home" />
+            </ListItem>
             <Divider />
             {genres.map(genre => (
                 <ListItem
                     key={genre.id}
                     onClick={() => handleGenreClick(genre.id)}
-                    sx={{ padding: '10px 16px' }}
+                    sx={{ padding: '10px 16px', backgroundColor: location.pathname === `/genres/${genre.id}` ? 'lightblue' : 'inherit' }}
                 >
                     <ListItemText primary={genre.name} />
                 </ListItem>

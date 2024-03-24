@@ -4,26 +4,15 @@ import Avatar from "@mui/material/Avatar";
 
 import {userService} from "../../servises/axiosService";
 
+import {UserApiResponse} from "../../interfaces/responseInterfaces";
 
-
-
-interface User {
-    id: number;
-    name: string;
-    username: string;
-    avatar?: {
-        gravatar?: {
-            hash: string;
-        };
-    };
-}
 
 export const UserInfo: React.FC = () => {
-    const [userInfo, setUserInfo] = useState<User | null>(null);
+    const [userInfo, setUserInfo] = useState<UserApiResponse | null>(null);
 
     useEffect(() => {
         userService.getUserInfo().then(response => {
-            const data = response.data as User;
+            const data = response.data as UserApiResponse;
             setUserInfo(data);
         }).catch(error => {
             console.error('Error loading user info:', error);
@@ -34,9 +23,7 @@ export const UserInfo: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    const avatarUrl = userInfo.avatar?.gravatar?.hash
-        ? `https://www.gravatar.com/avatar/${userInfo.avatar.gravatar.hash}?s=30`
-        : 'path_to_default_avatar_image';
+    const avatarUrl = userService.getAvatarUrl(userInfo);
 
     return (
         <div>

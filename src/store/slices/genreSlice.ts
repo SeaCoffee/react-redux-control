@@ -52,10 +52,10 @@ const genresSlice = createSlice({
             })
             .addCase(fetchGenres.rejected, (state, action) => {
                 console.log('Failed to load genres:', action.payload);
-                state.status = 'failed';
+
+              state.status = 'failed';
                 state.error = action.payload as string;
             });
     },
 });
-
 export default genresSlice.reducer;

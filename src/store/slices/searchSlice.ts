@@ -10,30 +10,37 @@ import {MovieApiResponse} from "../../interfaces/responseInterfaces";
 export interface SearchState {
     query: string;
     page: number;
+    totalPages: number;
     movies: MovieApiResponse | null;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
 
-
 const initialState: SearchState = {
     query: '',
     page: 1,
+    totalPages: 0,
     movies: null,
     status: 'idle',
     error: null,
 };
 
 
-export const fetchMovies = createAsyncThunk<MovieApiResponse, { query: string; page: number }>(
+
+export const fetchMovies = createAsyncThunk<
+    { movies: MovieApiResponse; totalPages: number; currentPage: number },
+    { query: string; page: number }
+>(
     'search/fetchMovies',
     async ({ query, page }, { rejectWithValue }) => {
         try {
             const { data } = await searchService.getAll(query, page);
-            console.log("Data received in fetchMovies:", data);
-            return data;
+            return {
+                movies: data,
+                totalPages: data.total_pages,
+                currentPage: page,
+            };
         } catch (error) {
-            console.error("Error in fetchMovies:", error);
             if (axios.isAxiosError(error) && error.response) {
                 return rejectWithValue(error.response.data);
             } else {
@@ -42,7 +49,6 @@ export const fetchMovies = createAsyncThunk<MovieApiResponse, { query: string; p
         }
     }
 );
-
 
 const searchSlice = createSlice({
     name: 'search',
@@ -58,21 +64,19 @@ const searchSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchMovies.pending, (state) => {
-                console.log("fetchMovies pending");
                 state.status = 'loading';
             })
             .addCase(fetchMovies.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.movies = action.payload;
+                state.movies = action.payload.movies;
+                state.totalPages = action.payload.totalPages;
+                state.page = action.payload.currentPage;
             })
-
             .addCase(fetchMovies.rejected, (state, action) => {
-                console.error("fetchMovies rejected, action:", action);
                 state.status = 'failed';
                 state.error = action.payload as string;
             });
     },
-
 });
 
 export const { setQuery, setPage } = searchSlice.actions;

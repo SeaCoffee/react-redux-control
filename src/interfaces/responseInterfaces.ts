@@ -33,4 +33,9 @@ export interface UserApiResponse {
     id: number;
     name: string;
     username: string;
+    avatar?: {
+        gravatar?: {
+            hash: string;
+        };
+    };
 }

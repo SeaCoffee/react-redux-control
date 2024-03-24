@@ -11,6 +11,8 @@ export type MoviesState = {
     currentMovieStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
+    totalPages: number;
+    currentPage: number;
 };
 
 const initialState: MoviesState = {
@@ -19,10 +21,15 @@ const initialState: MoviesState = {
     currentMovieStatus: 'idle',
     status: 'idle',
     error: null,
+    totalPages: 0,
+    currentPage: 1,
 };
 
-
-export const fetchMovies = createAsyncThunk<Movie[], { page?: number, genreId?: number, searchTerm?: string }, { rejectValue: string }>(
+export const fetchMovies = createAsyncThunk<
+    { movies: Movie[]; totalPages: number; currentPage: number },
+    { page?: number; genreId?: number; searchTerm?: string },
+    { rejectValue: string }
+>(
     'movies/fetchMovies',
     async ({ page = 1, genreId, searchTerm }, { rejectWithValue }) => {
         try {
@@ -34,7 +41,11 @@ export const fetchMovies = createAsyncThunk<Movie[], { page?: number, genreId?: 
             } else {
                 response = await moviesService.getAll(page);
             }
-            return response.data.results;
+            return {
+                movies: response.data.results,
+                totalPages: response.data.total_pages,
+                currentPage: page,
+            };
         } catch (error) {
             return rejectWithValue('An error occurred while loading movies');
         }
@@ -63,7 +74,9 @@ const moviesSlice = createSlice({
             })
             .addCase(fetchMovies.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.movies = action.payload;
+                state.movies = action.payload.movies;
+                state.totalPages = action.payload.totalPages;
+                state.currentPage = action.payload.currentPage;
             })
             .addCase(fetchMovies.rejected, (state, action) => {
                 state.status = 'failed';

@@ -24,8 +24,6 @@ export const Header: React.FC = () => {
     const dispatch = useAppDispatch();
     const { theme, toggleTheme } = useTheme();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const appBarClass = theme === 'light' ? 'app-bar-light' : 'app-bar-dark';
-
 
     const handleThemeChange = () => {
         toggleTheme();
@@ -48,14 +46,11 @@ export const Header: React.FC = () => {
         setIsDrawerOpen(open);
     };
 
-
-
-
     return (
         <>
-            <Box sx={{ flexGrow: 1 }} className={appBarClass}>
+            <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static" sx={{ backgroundColor: theme === 'light' ? '#fff' : 'black', color: theme === 'light' ? '#000' : '#fff' }} >
-                <Toolbar className="toolbar">
+                    <Toolbar className="toolbar">
                         <IconButton
                             edge="start"
                             color="inherit"
